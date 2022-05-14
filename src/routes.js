@@ -5,5 +5,5 @@ const routes = express.Router();
 
   routes.get('/agents', handle(ValorantAgenstController.getAgents));
 
-  routes.get('/agents/:agentOrId/abilities', handle(ValorantAgenstController.getAgentsAbilities))
+  routes.get('/agents/:agentOrId/abilities', handle(ValorantAgenstController.getAgentsAbilities));
 export default routes;

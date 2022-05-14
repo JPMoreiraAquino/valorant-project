@@ -8,9 +8,17 @@ class SrAgenstService {
 
   async getAgentsAbilities (agentOrId) { 
     const [filterAgentsUsables] = await this.getAgentsUsables();
-    
     const filterAgenstAbilities = filterAgentsUsables.filter(it => it.displayName === agentOrId || it.uuid === agentOrId);
-    return filterAgenstAbilities;
+    const [abilitiesMap] = filterAgenstAbilities.map(it => ({
+      id: it.uuid,
+      name: it.displayName,
+      abilities: it.abilities.map(item => ({
+        slot: item.slot,
+        name: item.displayName,
+        description: item.description
+      }))
+    }));
+    return abilitiesMap;
   }
 
   async getListAgents() {
