@@ -1,36 +1,22 @@
-// Forma 1 !!!
-/*
-const {
-readFile
-} = require('fs');
-
-const { promisify } = require('util'); 
-
-const readFileAsync = promisify(readFile);
-
-async obterAgents() {
-  const file = await readFileAsync(this.FILE_NAME, 'utf8' )
-  return JSON.parse(file.toString());
-}
-*/
-const SrAgenstService = require('./agents.json')
-
+import srValorantApi from "./sr-valorant-api.js";
 class SrAgenstService {
-  obterAgents() {
-    const agentsData = database;
-    return agentsData
-  }
-
-  obterDataAgents() {
+  async getAgentsUsables () {
+    const getAgents = await srValorantApi.getAgents();
+    const filterAgentsUsables = getAgents.data.filter(it => it.isPlayableCharacter === true);
+    return [filterAgentsUsables, getAgents];
 
   }
 
-  async listAgent(name) {
-    const agentsData = await this.obterAgents();
-    const filterData = agentsData.data.filter(item => (name ? (item.displayName === name) : true));
-
-    return filterData
+  async getListAgents() {
+    const [getAgentsfilter, getAgents] = await this.getAgentsUsables();
+    const listAgents = getAgentsfilter.map(it => ({
+      agentName: it.displayName
+    }));
+    return { 
+      statusCode: getAgents.status,
+      data:listAgents
+    };
   }
 }
 
-module.exports = new SrAgenstService();
+export default new SrAgenstService();
