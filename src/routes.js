@@ -5,17 +5,5 @@ const routes = express.Router();
 
   routes.get('/agents', handle(ValorantAgenstController.getAgents));
 
-
-  // routes.get('/', (req, res) => {
-  //   return res.json(db);
-  // })
-  
-  // routes.post('/add', (req, res) => {
-  //   const body = req.body
-  //   if(!body)
-  //     return res.status(400).end();
-    
-  //   db.push(body)
-  //     return res.json(body);
-  // })
+  routes.get('/agents/:agentOrId/abilities', handle(ValorantAgenstController.getAgentsAbilities))
 export default routes;

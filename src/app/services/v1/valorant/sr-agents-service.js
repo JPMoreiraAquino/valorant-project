@@ -4,7 +4,13 @@ class SrAgenstService {
     const getAgents = await srValorantApi.getAgents();
     const filterAgentsUsables = getAgents.data.filter(it => it.isPlayableCharacter === true);
     return [filterAgentsUsables, getAgents];
+  }
 
+  async getAgentsAbilities (agentOrId) { 
+    const [filterAgentsUsables] = await this.getAgentsUsables();
+    
+    const filterAgenstAbilities = filterAgentsUsables.filter(it => it.displayName === agentOrId || it.uuid === agentOrId);
+    return filterAgenstAbilities;
   }
 
   async getListAgents() {
@@ -18,5 +24,4 @@ class SrAgenstService {
     };
   }
 }
-
 export default new SrAgenstService();

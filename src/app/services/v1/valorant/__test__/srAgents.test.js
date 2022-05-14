@@ -1,9 +1,4 @@
-const {
-  deepEqual,
-  ok
-} = require('assert');
-
-const database = require('./database');
+con
 
 
 const DEFAULT_ITEM_CADASTRAR = {
